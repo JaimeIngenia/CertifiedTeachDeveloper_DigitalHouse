@@ -16,7 +16,7 @@ public class DB {
         return DriverManager.getConnection(URL,USER,PASSWORD);
     }
 
-    // Metodo para crear la tabla
+    // Metodo para crear la tabla master
     public static void createTables(){
         Connection connection = null;// singleton
 
