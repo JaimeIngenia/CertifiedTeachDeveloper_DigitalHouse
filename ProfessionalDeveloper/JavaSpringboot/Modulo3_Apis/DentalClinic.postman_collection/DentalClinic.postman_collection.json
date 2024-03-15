@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "528f7a77-6b22-4004-a194-8ca89be774b1",
+		"name": "DentalClinic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "22466861",
+		"_collection_link": "https://www.postman.com/cloudy-space-264912/workspace/backend/collection/22466861-528f7a77-6b22-4004-a194-8ca89be774b1?action=share&source=collection_link&creator=22466861"
+	},
+	"item": [
+		{
+			"name": "Guardar pacientes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Jose\",\r\n    \"lastName\": \"Garcia\",\r\n    \"email\": \"paciente@gmail.com\",\r\n    \"cardIdentity\": 22222222,\r\n    \"admissionOfDate\": \"2024-01-05\",\r\n    \"address\": {\r\n        \"street\": \"Calle a\",\r\n        \"number\": 11,\r\n        \"location\": \"Luján\",\r\n        \"province\": \"Mendoza\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/pacientes"
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar pacientes",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 9,\r\n    \"name\": \"Juan\",\r\n    \"lastName\": \"Garcia\",\r\n    \"email\": \"paciente@gmail.com\",\r\n    \"cardIdentity\": 22222222,\r\n    \"admissionOfDate\": \"2024-01-05\",\r\n    \"address\": {\r\n        \"id\": 9,\r\n        \"street\": \"Calle a\",\r\n        \"number\": 11,\r\n        \"location\": \"Luján\",\r\n        \"province\": \"Mendoza\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/pacientes"
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Odontologo por Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/odontologos/2"
+			},
+			"response": []
+		},
+		{
+			"name": "Guardar Odontologos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"registration\": 12541,\r\n    \"name\": \"Carlos\",\r\n    \"lastName\": \"Odonto\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/odontologos"
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Odontologos",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"registration\": 12541,\r\n    \"name\": \"Carlitos\",\r\n    \"lastName\": \"Odonto\"\r\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/odontologos"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Odontólogo",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8080/odontologos/2"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Odontólogos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/odontologos"
+			},
+			"response": []
+		}
+	]
+}
