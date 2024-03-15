@@ -16,7 +16,7 @@ public class DB {
         return DriverManager.getConnection(URL,USER,PASSWORD);
     }
 
-    // Metodo para crear la tabla master
+    // Metodo para crear la tabla master otra vez rama springboot
     public static void createTables(){
         Connection connection = null;// singleton
 
