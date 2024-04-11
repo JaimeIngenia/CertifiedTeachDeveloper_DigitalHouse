@@ -38,41 +38,121 @@ public class PatientDaoH2 implements IDao<Patient>{
 
 
     // Clase como tal.....................
-
-
     @Override
     public Patient save(Patient patient) {
         Connection connection = null;
-        try{
-            AddresssDaoH2 addresssDaoH2 = new AddresssDaoH2();// Instanciar la clas
-            addresssDaoH2.save(patient.getAddress());//llamar a un método de esa clase
+        try {
+            AddresssDaoH2 addresssDaoH2 = new AddresssDaoH2();
+            Address savedAddress = addresssDaoH2.save(patient.getAddress()); // Guardar la dirección y obtener el objeto guardado
+            patient.setAddress(savedAddress); // Actualizar la dirección en el objeto paciente con la dirección guardada
 
             connection = DB.getConnection();
             PreparedStatement ps = connection.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, patient.getName());
-            ps.setString(2,patient.getLastName());
-            ps.setString(3,patient.getEmail());
+            ps.setString(2, patient.getLastName());
+            ps.setString(3, patient.getEmail());
             ps.setInt(4, patient.getCardIdentity());
             ps.setDate(5, Date.valueOf(patient.getAdmissionOfDate()));
-            ps.setInt(6, patient.getAddress().getId());
+
+            if (savedAddress.getId() != null) {
+                ps.setInt(6, savedAddress.getId()); // Usar el ID de la dirección guardada
+            } else {
+                System.out.print("Que paso aquiii??????");
+                ps.setNull(6, Types.INTEGER); // Asignar NULL si la dirección no tiene un ID asignado
+            }
+
             ps.execute();
 
             ResultSet rs = ps.getGeneratedKeys();
-            while(rs.next()){
+            while (rs.next()) {
                 patient.setId(rs.getInt(1));
+                System.out.println("ID generado para el paciente: " + patient.getId());
+
             }
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
                 connection.close();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return patient;
     }
+
+
+//    @Override
+//    public Patient save(Patient patient) {
+//        Connection connection = null;
+//        try {
+//            AddresssDaoH2 addresssDaoH2 = new AddresssDaoH2();
+//            addresssDaoH2.save(patient.getAddress());
+//            //Address savedAddress = addresssDaoH2.save(patient.getAddress()); // Guardar la dirección y obtener el objeto guardado
+//            //patient.setAddress(savedAddress); // Actualizar la dirección en el objeto paciente con la dirección guardada
+//
+//            connection = DB.getConnection();
+//            PreparedStatement ps = connection.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+//            ps.setString(1, patient.getName());
+//            ps.setString(2, patient.getLastName());
+//            ps.setString(3, patient.getEmail());
+//            ps.setInt(4, patient.getCardIdentity());
+//            ps.setDate(5, Date.valueOf(patient.getAdmissionOfDate()));
+//            ps.setInt(6, patient.getAddress().getId()); // Usar el ID de la dirección guardada
+//            ps.execute();
+//
+//            ResultSet rs = ps.getGeneratedKeys();
+//            while (rs.next()) {
+//                patient.setId(rs.getInt(1));
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                connection.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return patient;
+//    }
+
+
+//    @Override
+//    public Patient save(Patient patient) {
+//        Connection connection = null;
+//        try{
+//            AddresssDaoH2 addresssDaoH2 = new AddresssDaoH2();// Instanciar la clas
+//            addresssDaoH2.save(patient.getAddress());//llamar a un método de esa clase
+//
+//            connection = DB.getConnection();
+//            PreparedStatement ps = connection.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+//            ps.setString(1, patient.getName());
+//            ps.setString(2,patient.getLastName());
+//            ps.setString(3,patient.getEmail());
+//            ps.setInt(4, patient.getCardIdentity());
+//            ps.setDate(5, Date.valueOf(patient.getAdmissionOfDate()));
+//            ps.setInt(6, patient.getAddress().getId());
+//            ps.execute();
+//
+//            ResultSet rs = ps.getGeneratedKeys();
+//            while(rs.next()){
+//                patient.setId(rs.getInt(1));
+//            }
+//
+//        } catch(Exception e){
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                connection.close();
+//            } catch (Exception e){
+//                e.printStackTrace();
+//            }
+//        }
+//        return patient;
+//    }
 
     @Override
     public Patient findById(Integer id) {
