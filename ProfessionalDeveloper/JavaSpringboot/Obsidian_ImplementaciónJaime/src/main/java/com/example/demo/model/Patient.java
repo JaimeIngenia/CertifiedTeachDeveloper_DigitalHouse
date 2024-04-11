@@ -12,6 +12,8 @@ public class Patient {
     private LocalDate admissionOfDate;
     private Address address;
 
+    public Patient() {
+    }
 
     public Patient(Integer id, String name, String lastName, String email, Integer cardIdentity, LocalDate admissionOfDate, Address address) {
         this.id = id;
